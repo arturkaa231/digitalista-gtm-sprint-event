@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The GTM Sprint — Digitalista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.8125rem);
+  --text-sm:clamp(0.875rem,0.82rem + 0.3vw,0.9375rem);
+  --text-base:clamp(1rem,0.95rem + 0.25vw,1.0625rem);
+  --text-lg:clamp(1.0625rem,0.95rem + 0.6vw,1.375rem);
+  --text-xl:clamp(1.5rem,1.15rem + 1.4vw,2.25rem);
+  --text-2xl:clamp(2rem,1.3rem + 2.6vw,3.5rem);
+  --text-3xl:clamp(2.75rem,1.4rem + 5.2vw,5.5rem);
+
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;
+  --space-20:5rem;--space-24:6rem;--space-32:8rem;
+
+  /* Digitalista official color system */
+  --bg:#080808;            /* Summit Near-Black */
+  --bg-blue:#13182E;       /* Digitalista Blue */
+  --card:#111111;          /* Card Background */
+  --card-2:#141414;
+  --green:#4ADE80;         /* Digitalista Green — accent ONLY */
+  --green-dim:#3fbf6f;
+  --green-soft:rgba(74,222,128,.10);
+  --white:#FFFFFF;         /* Primary Text */
+  --muted:#B4B4B4;         /* Muted Text — lightened for readability */
+  --faint:#8A8A8A;         /* lightened */
+  --line:#222222;          /* Border / Divider */
+  --line-2:#2c2c2c;
+  --gold:#F5A623;          /* Alert / Emphasis — sparingly */
+
+  --radius-sm:0.5rem;--radius-md:0.625rem;--radius-lg:0.875rem;--radius-xl:1.25rem;--radius-full:9999px;
+  --content:1120px;
+  --font-display:'Archivo','Arial Black',sans-serif;
+  --font-body:'Inter','Helvetica Neue',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:var(--space-20);}
+body{min-height:100dvh;line-height:1.6;font-family:var(--font-body);font-size:var(--text-base);color:var(--muted);background:var(--bg);overflow-x:hidden;}
+img,svg{display:block;max-width:100%;height:auto;}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;line-height:1.03;letter-spacing:-0.035em;font-weight:800;color:var(--white);}
+p{text-wrap:pretty;max-width:62ch;}
+a{color:inherit;text-decoration:none;transition:color .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);}
+::selection{background:var(--green);color:#080808;}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:var(--radius-sm);}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
+
+.wrap{max-width:var(--content);margin-inline:auto;padding-inline:var(--space-6);}
+.dot{color:var(--green);}
+
+/* mono section label: // 01  LABEL */
+.label{font-family:var(--font-mono);font-weight:500;font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--white);display:inline-flex;align-items:center;gap:var(--space-3);}
+.label .slash{color:var(--green);}
+.label .num{color:var(--green);}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(8,8,8,.78);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:var(--content);margin-inline:auto;padding:var(--space-4) var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);}
+.logo{font-family:var(--font-display);font-weight:900;font-size:1.1rem;letter-spacing:0.01em;color:var(--white);text-transform:uppercase;}
+.nav-cta{font-family:var(--font-body);font-weight:600;font-size:var(--text-sm);color:#080808;background:var(--green);padding:var(--space-3) var(--space-5);border-radius:var(--radius-md);white-space:nowrap;}
+.nav-cta:hover{background:var(--white);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);font-family:var(--font-body);font-weight:600;font-size:var(--text-sm);padding:var(--space-4) var(--space-6);border-radius:var(--radius-md);transition:all .2s var(--ease);cursor:pointer;line-height:1;}
+.btn-primary{background:var(--green);color:#080808;}
+.btn-primary:hover{background:var(--white);transform:translateY(-2px);}
+.btn-ghost{border:1.5px solid var(--line-2);color:var(--white);background:transparent;}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px);}
+
+/* HERO */
+.hero{position:relative;padding-block:clamp(var(--space-20),11vw,var(--space-32)) clamp(var(--space-12),7vw,var(--space-20));text-align:center;overflow:hidden;}
+.hero::before{content:"";position:absolute;inset:0;background:
+   radial-gradient(680px 380px at 50% -8%,rgba(74,222,128,.08),transparent 62%);pointer-events:none;}
+.hero .wrap{position:relative;}
+.hero .label{margin-bottom:var(--space-6);}
+.hero h1{font-size:clamp(2.4rem,1.3rem + 4.2vw,4.5rem);font-weight:900;letter-spacing:-0.03em;word-spacing:0.06em;max-width:22ch;margin-inline:auto;line-height:1.05;}
+.hero .lede{color:var(--muted);font-size:var(--text-lg);margin:var(--space-6) auto 0;max-width:52ch;}
+.hero .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);margin-top:var(--space-8);}
+.hero .cta-micro{margin:var(--space-4) auto 0;max-width:46ch;font-size:var(--text-sm);color:var(--faint);line-height:1.5;}
+.hero .slots{margin-top:var(--space-6);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.06em;color:var(--gold);display:inline-flex;align-items:center;gap:var(--space-2);justify-content:center;}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(245,166,35,.5);animation:pulse 2.2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.45);}70%{box-shadow:0 0 0 9px rgba(245,166,35,0);}100%{box-shadow:0 0 0 0 rgba(245,166,35,0);}}
+
+/* SECTIONS */
+section.blk{padding-block:clamp(var(--space-16),8vw,var(--space-32));}
+.blue{background:var(--bg-blue);}
+.sec-head{max-width:46ch;}
+.sec-head.center{margin-inline:auto;text-align:center;}
+.sec-head .label{margin-bottom:var(--space-5);}
+.sec-head h2{font-size:var(--text-2xl);}
+.sec-head p{color:var(--muted);font-size:var(--text-lg);margin-top:var(--space-5);}
+.sec-head.center p{margin-inline:auto;}
+.sec-divider{border:none;border-top:1px solid var(--line);max-width:var(--content);margin:0 auto;}
+
+/* PAIN cards */
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5);margin-top:var(--space-12);}
+@media(max-width:760px){.pain-grid{grid-template-columns:1fr;}}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-6);transition:border-color .2s var(--ease),transform .2s var(--ease);}
+.pain:hover{border-color:var(--line-2);transform:translateY(-3px);}
+.pain q{display:block;font-size:var(--text-lg);color:var(--white);font-weight:500;quotes:"“" "”";line-height:1.35;letter-spacing:-0.01em;}
+.pain q::before{content:open-quote;color:var(--green);}
+.pain q::after{content:close-quote;color:var(--green);}
+.pain .who{display:block;color:var(--faint);font-family:var(--font-mono);font-size:var(--text-xs);margin-top:var(--space-4);letter-spacing:.04em;}
+
+/* HOW */
+.how-grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(var(--space-8),5vw,var(--space-16));align-items:center;}
+@media(max-width:860px){.how-grid{grid-template-columns:1fr;}}
+.steps{list-style:none;margin-top:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5);}
+.steps li{display:flex;gap:var(--space-4);align-items:flex-start;}
+.steps .num{font-family:var(--font-mono);font-weight:600;color:var(--green);font-size:var(--text-base);flex:none;width:3ch;}
+.steps b{color:var(--white);display:block;font-weight:700;font-family:var(--font-body);font-size:var(--text-base);}
+.steps p{color:var(--muted);font-size:var(--text-sm);margin-top:2px;}
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-xl);padding:var(--space-8);}
+.loop{display:flex;flex-direction:column;gap:0;}
+.loop .node{display:flex;align-items:center;gap:var(--space-4);}
+.loop .badge{width:46px;height:46px;border-radius:var(--radius-md);background:var(--green-soft);border:1px solid rgba(74,222,128,.28);display:flex;align-items:center;justify-content:center;color:var(--green);flex:none;font-family:var(--font-display);font-weight:800;}
+.loop .node b{font-family:var(--font-body);font-weight:700;color:var(--white);}
+.loop .node p{color:var(--faint);font-size:var(--text-sm);}
+.loop .conn{width:2px;height:var(--space-5);background:var(--line-2);margin-left:22px;}
+.hood{margin-top:var(--space-6);padding-top:var(--space-6);border-top:1px dashed var(--line-2);color:var(--muted);font-size:var(--text-sm);}
+.hood b{color:var(--white);font-weight:600;}
+
+/* WEEKS */
+.weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5);margin-top:var(--space-12);}
+@media(max-width:900px){.weeks{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.weeks{grid-template-columns:1fr;}}
+.week{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-6);position:relative;overflow:hidden;}
+.week::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);}
+.week .wk{font-family:var(--font-mono);font-weight:600;font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
+.week h3{font-size:var(--text-lg);margin-top:var(--space-3);letter-spacing:-0.02em;}
+.week ul{list-style:none;margin-top:var(--space-4);display:flex;flex-direction:column;gap:var(--space-3);}
+.week li{color:var(--muted);font-size:var(--text-sm);padding-left:var(--space-5);position:relative;line-height:1.45;}
+.week li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:2px;background:var(--green);}
+.wk-get{margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--line);color:var(--white);font-size:var(--text-sm);line-height:1.5;}
+.wk-get b{color:var(--green);}
+.verbatim-kicker{color:var(--faint)!important;font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:.02em;}
+.final .anchor-close{color:var(--white)!important;font-size:var(--text-base)!important;max-width:52ch;margin-top:var(--space-5);}
+.final .anchor-close b{color:var(--green);}
+
+/* KEEP */
+.keep{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-top:var(--space-10);}
+@media(max-width:640px){.keep{grid-template-columns:1fr;}}
+.keep .item{display:flex;gap:var(--space-3);align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:var(--space-5);}
+.keep .item .ic{color:var(--green);flex:none;margin-top:1px;font-weight:700;}
+.keep .item span{color:var(--white);font-size:var(--text-base);}
+
+/* CONTRAST */
+.contrast{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;margin-top:var(--space-12);}
+.contrast .row{display:grid;grid-template-columns:1fr 1fr;}
+.contrast .row + .row{border-top:1px solid var(--line);}
+.contrast .cell{padding:var(--space-5) var(--space-6);font-size:var(--text-base);display:flex;align-items:center;gap:var(--space-3);}
+.contrast .cell.no{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--line-2);}
+.contrast .cell.yes{color:var(--white);border-left:1px solid var(--line);font-weight:500;}
+.contrast .cell .ic{flex:none;font-weight:700;}
+.contrast .cell.yes .ic{color:var(--green);}
+.contrast .cell.no .ic{color:var(--faint);}
+.contrast .head .cell{font-family:var(--font-mono);font-weight:600;font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;background:#0d0d0d;}
+.contrast .head .cell.yes{color:var(--green);}
+@media(max-width:640px){.contrast .cell{font-size:var(--text-sm);padding:var(--space-4);}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);margin-top:var(--space-12);max-width:920px;margin-inline:auto;}
+@media(max-width:760px){.stats{gap:var(--space-4);}.stat .n{font-size:var(--text-xl);}.stat .l{font-size:var(--text-xs);}}
+@media(max-width:540px){.stats{grid-template-columns:1fr;row-gap:var(--space-10);}}
+.stat .n{font-family:var(--font-display);font-weight:900;font-size:var(--text-2xl);color:var(--white);letter-spacing:-0.04em;line-height:1;}
+.stat .n .u{color:var(--green);}
+.stat .l{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-3);max-width:26ch;}
+.stat .src{display:block;color:var(--faint);font-family:var(--font-mono);font-size:var(--text-xs);margin-top:var(--space-2);}
+.stat .src a{border-bottom:1px dotted var(--line-2);}
+.stat .src a:hover{color:var(--green);border-color:var(--green);}
+
+/* PRICING */
+.price-wrap{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-12);}
+@media(max-width:840px){.price-wrap{grid-template-columns:1fr;}}
+.price-single{max-width:560px;margin:var(--space-12) auto 0;}
+.guarantee{display:flex;gap:var(--space-3);align-items:flex-start;background:var(--green-soft);border:1px solid rgba(74,222,128,.28);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5);margin-top:var(--space-5);color:var(--white);font-size:var(--text-sm);line-height:1.5;}
+.guarantee b{color:var(--green);font-weight:700;}
+.guarantee .g-ic{color:var(--green);font-size:1.2rem;line-height:1;flex:none;font-weight:700;}
+.card-p{border:1px solid var(--line);border-radius:var(--radius-xl);padding:var(--space-8);background:var(--card);position:relative;display:flex;flex-direction:column;}
+.card-p.feat{border-color:var(--green);background:linear-gradient(165deg,rgba(74,222,128,.05),var(--card) 55%);}
+.card-p .badge{position:absolute;top:calc(-1 * var(--space-3));left:var(--space-8);background:var(--green);color:#080808;font-family:var(--font-body);font-weight:600;font-size:var(--text-xs);letter-spacing:.04em;text-transform:uppercase;padding:var(--space-1) var(--space-4);border-radius:var(--radius-full);}
+.card-p .kicker{font-family:var(--font-mono);font-weight:500;font-size:var(--text-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.card-p .price{font-family:var(--font-display);font-weight:900;font-size:var(--text-3xl);letter-spacing:-0.045em;margin-top:var(--space-3);line-height:1;color:var(--white);}
+.card-p .price .cur{color:var(--green);}
+.card-p .price .per{font-family:var(--font-body);font-weight:500;font-size:var(--text-base);color:var(--faint);letter-spacing:0;}
+.card-p .terms{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-3);}
+.card-p ul{list-style:none;margin:var(--space-6) 0;display:flex;flex-direction:column;gap:var(--space-3);flex:1;}
+.card-p li{display:flex;gap:var(--space-3);align-items:flex-start;color:var(--white);font-size:var(--text-sm);line-height:1.45;}
+.card-p li .ic{color:var(--green);flex:none;margin-top:2px;font-weight:700;}
+.card-p .btn{width:100%;}
+.anchor-note{margin-top:var(--space-10);text-align:center;color:var(--muted);font-size:var(--text-base);max-width:64ch;margin-inline:auto;}
+.anchor-note b{color:var(--white);}
+.anchor-note a{color:var(--muted);border-bottom:1px dotted var(--line-2);}
+.anchor-note a:hover{color:var(--green);border-color:var(--green);}
+
+/* WHO / TEAM */
+.team-note{color:var(--muted);font-size:var(--text-lg);margin-top:var(--space-5);max-width:52ch;}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5);margin-top:var(--space-12);}
+@media(max-width:720px){.people{grid-template-columns:1fr;}}
+.person{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-6);}
+.person .av{width:64px;height:64px;border-radius:var(--radius-full);object-fit:cover;border:1px solid var(--line-2);background:#0d0d0d;}
+.person .name{font-family:var(--font-display);font-weight:900;font-size:var(--text-lg);letter-spacing:-0.02em;color:var(--white);margin-top:var(--space-5);}
+.person .role{font-family:var(--font-mono);font-weight:600;font-size:var(--text-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-top:var(--space-2);}
+.person h3{font-size:var(--text-lg);margin-top:var(--space-2);letter-spacing:-0.02em;}
+.person p{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-3);line-height:1.5;}
+.agents-head{margin-top:var(--space-20);}
+.agents{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);margin-top:var(--space-10);}
+@media(max-width:720px){.agents{grid-template-columns:1fr;}}
+.agent{display:flex;gap:var(--space-4);align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--radius-md);padding:var(--space-5);transition:border-color .2s var(--ease);}
+.agent:hover{border-color:var(--line-2);}
+.agent .glyph{width:48px;height:48px;flex:none;border-radius:var(--radius-md);border:1px solid var(--line);overflow:hidden;background:#0a0a0a;}
+.agent .glyph img{width:100%;height:100%;object-fit:cover;display:block;}
+.agent b{color:var(--white);font-family:var(--font-body);font-weight:700;font-size:var(--text-base);display:block;}
+.agent .fn{color:var(--muted);font-size:var(--text-sm);margin-top:2px;line-height:1.45;}
+.agent .tag{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--faint);letter-spacing:.04em;display:block;margin-top:var(--space-2);}
+.team-line{margin-top:var(--space-12);color:var(--muted);font-size:var(--text-base);max-width:60ch;}
+.team-line b{color:var(--white);}
+
+/* FINAL */
+.final .wrap{text-align:center;}
+.final .label{justify-content:center;margin-bottom:var(--space-5);}
+.final h2{font-size:var(--text-2xl);max-width:22ch;margin-inline:auto;}
+.final p{color:var(--muted);font-size:var(--text-lg);margin:var(--space-6) auto 0;max-width:54ch;}
+.final .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:var(--space-4);margin-top:var(--space-10);}
+.final .fine{margin-top:var(--space-6);color:var(--faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.04em;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding-block:var(--space-10);}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
+footer .cr{color:var(--faint);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.04em;}
+footer .cr a{color:var(--muted);}
+footer .cr a:hover{color:var(--green);}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+</style>
+</head>
+<body id="top">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Digitalista home">Digitalista<span class="dot">.</span></a>
+    <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="nav-cta">Book a call</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="label"><span class="slash">//</span> A 30-day design-partner sprint</span>
+    <h1>Your first growth team.<br>For 30 days. Before you can afford one<span class="dot">.</span></h1>
+    <p class="lede">A fixed 30-day sprint: we diagnose your GTM bottleneck, design the experiments, and run the outbound machine. You just take the calls.</p>
+    <div class="actions">
+      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
+      <a href="#how" class="btn btn-ghost">See how it works</a>
+    </div>
+    <p class="cta-micro">We take 4 sprints per month. No pitch — you’ll leave with a hypothesis about your bottleneck either way.</p>
+    <div class="slots"><span class="pulse"></span><span>4 sprints / month · this cohort · partner pricing</span></div>
+  </div>
+</header>
+
+<hr class="sec-divider" />
+
+<!-- PROBLEM -->
+<section class="blk">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label"><span class="slash">//</span> <span class="num">01</span> The problem</span>
+      <h2>You didn’t raise the round to write reports about why it isn’t working<span class="dot">.</span></h2>
+      <p class="verbatim-kicker">What founders like you tell us on the first call:</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain reveal"><q>You’ve built something, but nobody seems to want it.</q><span class="who">// the PMF hell everyone denies being in</span></div>
+      <div class="pain reveal"><q>Six months and $45K later — a handful of blog posts and a stack of reports.</q><span class="who">// founder who fired their agency</span></div>
+      <div class="pain reveal"><q>We tried everything at once. Weak signals, no insights, nothing resolved.</q><span class="who">// the “try every channel” trap</span></div>
+      <div class="pain reveal"><q>I raised the round. I still don’t know if the thing is real.</q><span class="who">// the part no one posts on LinkedIn</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="blk blue" id="how">
+  <div class="wrap">
+    <div class="how-grid">
+      <div class="reveal">
+        <span class="label"><span class="slash">//</span> <span class="num">02</span> The model</span>
+        <h2 style="font-size:var(--text-2xl);margin-top:var(--space-5)">A co-CMO, not a consultant<span class="dot">.</span></h2>
+        <p style="color:var(--muted);font-size:var(--text-lg);margin-top:var(--space-5)">You decide. We run the machine underneath.</p>
+        <ul class="steps">
+          <li><span class="num">01</span><div><b>You stay the decision-maker</b><p>You approve; you close. Founder-led sells at 40–60% vs ~18% for a hired AE.</p></div></li>
+          <li><span class="num">02</span><div><b>We run the whole loop</b><p>Decide → run → learn, weekly. Real execution — not another deck.</p></div></li>
+          <li><span class="num">03</span><div><b>An experiment, not a hire</b><p>Reads to investors as de-risking — not “can’t figure out sales.”</p></div></li>
+        </ul>
+      </div>
+      <div class="diagram reveal" aria-label="Decide, run, learn loop">
+        <div class="loop">
+          <div class="node"><div class="badge">1</div><div><b>Decide</b><p>Sharpen the ICP · pick the outbound motion most likely to pull</p></div></div>
+          <div class="conn"></div>
+          <div class="node"><div class="badge">2</div><div><b>Run</b><p>Signal-based outbound, launched for you</p></div></div>
+          <div class="conn"></div>
+          <div class="node"><div class="badge">3</div><div><b>Learn</b><p>Weekly readout · kill what’s dead, double down</p></div></div>
+        </div>
+        <p class="hood"><b>Under the hood:</b> senior operators run the strategy. AI agents run the volume. You get the output of a 5-person team at the cost of a fraction of one hire.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKS -->
+<section class="blk" id="sprint">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label"><span class="slash">//</span> <span class="num">03</span> The 30 days</span>
+      <h2>Four weeks, one outcome: a channel with evidence behind it<span class="dot">.</span></h2>
+      <p>No 50-page strategy. No 6-month retainer. A time-boxed sprint that forces an answer.</p>
+    </div>
+    <div class="weeks">
+      <div class="week reveal">
+        <div class="wk">Week 1</div><h3>Diagnose &amp; aim</h3>
+        <ul><li>Find where you’re actually stuck — the bottleneck, not the vibe</li><li>ICP sharpened to one beachhead</li><li>3 prioritized experiments, grounded in what worked for founders like you</li></ul>
+        <p class="wk-get"><b>You get:</b> a one-page bottleneck diagnosis, your ICP definition, and 3 ranked experiments — yours to keep even if we stop here.</p>
+      </div>
+      <div class="week reveal">
+        <div class="wk">Week 2</div><h3>Run</h3>
+        <ul><li>We launch the top experiment for you</li><li>Personalized, signal-based outbound — real triggers, not first-name swaps</li><li>Your first weekly readout: what’s working, what’s not, why</li></ul>
+        <p class="wk-get"><b>You get:</b> a live outbound campaign in-market and the first week’s readout — reply rates, early signal, what we’re changing.</p>
+      </div>
+      <div class="week reveal">
+        <div class="wk">Week 3</div><h3>Double down</h3>
+        <ul><li>Kill what’s dead, pour into what’s pulling</li><li>Early meetings routed to you — you close</li><li>Honest, conservative forecast — no happy-ears numbers</li></ul>
+        <p class="wk-get"><b>You get:</b> qualified conversations on your calendar and a conservative forecast for the winning motion.</p>
+      </div>
+      <div class="week reveal">
+        <div class="wk">Week 4</div><h3>Systematize</h3>
+        <ul><li>The winning motion becomes a playbook you own</li><li>Channel, sequences, target logic, metrics — documented</li><li>A clear decision: repeat it, with us or solo</li></ul>
+        <p class="wk-get"><b>You get:</b> a documented, repeatable playbook — channel, sequences, target logic, and metrics — that runs with or without us.</p>
+      </div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:var(--space-24)">
+      <span class="label"><span class="slash">//</span> Yours to keep</span>
+      <h2>Everything we build is yours. No lock-in<span class="dot">.</span></h2>
+    </div>
+    <div class="keep">
+      <div class="item reveal"><span class="ic" aria-hidden="true">✓</span><span>The sharpened ICP &amp; positioning</span></div>
+      <div class="item reveal"><span class="ic" aria-hidden="true">✓</span><span>The signal-based target list &amp; enrichment logic</span></div>
+      <div class="item reveal"><span class="ic" aria-hidden="true">✓</span><span>The winning sequences &amp; the repeatable playbook</span></div>
+      <div class="item reveal"><span class="ic" aria-hidden="true">✓</span><span>The full experiment log — what we learned, what to do next</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST -->
+<section class="blk blue" id="different">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label"><span class="slash">//</span> <span class="num">04</span> Why it’s different</span>
+      <h2>Everything founders hate about GTM help, removed<span class="dot">.</span></h2>
+    </div>
+    <div class="contrast reveal">
+      <div class="row head"><div class="cell no">The usual</div><div class="cell yes">The GTM Sprint</div></div>
+      <div class="row"><div class="cell no"><span class="ic">✕</span>“We run your marketing”</div><div class="cell yes"><span class="ic">✓</span>A 30-day acquisition experiment</div></div>
+      <div class="row"><div class="cell no"><span class="ic">✕</span>A 6-month retainer lock-in</div><div class="cell yes"><span class="ic">✓</span>Time-boxed, fixed scope, month-to-month after</div></div>
+      <div class="row"><div class="cell no"><span class="ic">✕</span>A strategy deck to read</div><div class="cell yes"><span class="ic">✓</span>A prioritized channel test with real results</div></div>
+      <div class="row"><div class="cell no"><span class="ic">✕</span>Generic advice you could’ve ChatGPT’d</div><div class="cell yes"><span class="ic">✓</span>Decisions grounded in your customers, this week</div></div>
+      <div class="row"><div class="cell no"><span class="ic">✕</span>Monthly reports on activity</div><div class="cell yes"><span class="ic">✓</span>Weekly decisions → one validated channel</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO RUNS IT -->
+<section class="blk" id="who">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label"><span class="slash">//</span> <span class="num">05</span> Who runs it</span>
+      <h2>A team of operators, plus their agents<span class="dot">.</span></h2>
+      <p class="team-note">Not a solo consultant, not a faceless agency. Operators who’ve built and sold GTM systems, running a stack of AI agents underneath. Humans decide. Agents do the volume.</p>
+    </div>
+
+    <div class="people">
+      <div class="person reveal">
+        <img class="av" src="assets/op_gtm.png" alt="Alisa, GTM Lead" width="64" height="64" />
+        <div class="name">Alisa</div>
+        <div class="role">GTM Lead</div>
+        <h3>Strategy &amp; positioning</h3>
+        <p>12+ yrs in B2B SaaS. Grew early startups from zero to one. Owns your ICP, positioning, and the calls that close.</p>
+      </div>
+      <div class="person reveal">
+        <img class="av" src="assets/op_eng.png" alt="GTM Engineer" width="64" height="64" />
+        <div class="role">GTM Engineer</div>
+        <h3>Execution &amp; systems</h3>
+        <p>Turns the strategy into running experiments. Wires the outbound, the lists, and the agent stack so tests actually ship — not sit in a backlog.</p>
+      </div>
+      <div class="person reveal">
+        <img class="av" src="assets/op_tech.png" alt="Arthur, CTO" width="64" height="64" />
+        <div class="name">Arthur</div>
+        <div class="role">CTO</div>
+        <h3>The agent stack</h3>
+        <p>Architects the multi-agent automation. Grew products from zero to one before — now builds the pipeline so a small team ships like a big one.</p>
+      </div>
+    </div>
+
+    <div class="sec-head reveal agents-head">
+      <span class="label"><span class="slash">//</span> The agents</span>
+      <h2 style="font-size:var(--text-xl)">What the AI does, so the humans don’t<span class="dot">.</span></h2>
+    </div>
+    <div class="agents">
+      <div class="agent reveal">
+        <span class="glyph" aria-hidden="true"><img src="assets/agent_diagnose.png" alt="" width="48" height="48" /></span>
+        <div><b>Diagnosis agent</b><span class="fn">Reads your product, competitors, and current signals against 240+ B2B cases to name what’s actually broken.</span><span class="tag">// diagnose</span></div>
+      </div>
+      <div class="agent reveal">
+        <span class="glyph" aria-hidden="true"><img src="assets/agent_target.png" alt="" width="48" height="48" /></span>
+        <div><b>ICP &amp; signal agent</b><span class="fn">Builds the target list and enrichment logic — real buying triggers, not just a first-name field.</span><span class="tag">// target</span></div>
+      </div>
+      <div class="agent reveal">
+        <span class="glyph" aria-hidden="true"><img src="assets/agent_message.png" alt="" width="48" height="48" /></span>
+        <div><b>Message agent</b><span class="fn">Drafts positioning and outbound copy in your buyer’s language — personalized at scale, reviewed by a human.</span><span class="tag">// message</span></div>
+      </div>
+      <div class="agent reveal">
+        <span class="glyph" aria-hidden="true"><img src="assets/agent_run.png" alt="" width="48" height="48" /></span>
+        <div><b>Experiment agent</b><span class="fn">Launches each test with channel, volume, and kill criteria — then tracks what pulls and what to cut.</span><span class="tag">// run &amp; learn</span></div>
+      </div>
+    </div>
+
+    <p class="team-line reveal"><b>The result:</b> the strategy of a senior operator, the throughput of an automated team — for a fraction of a single GTM hire.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="blk blue" id="why">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="label" style="justify-content:center"><span class="slash">//</span> <span class="num">06</span> Why now</span>
+      <h2>The clock is louder than founders admit<span class="dot">.</span></h2>
+    </div>
+    <div class="stats">
+      <div class="stat reveal">
+        <div class="n">43<span class="u">%</span></div>
+        <div class="l">of VC-backed startups fail from poor product-market fit</div>
+        <span class="src"><a href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/" target="_blank" rel="noopener">CB Insights, 2024</a></span>
+      </div>
+      <div class="stat reveal">
+        <div class="n">15<span class="u">%</span></div>
+        <div class="l">of seed startups now raise a Series A within two years — half the 2018 rate</div>
+        <span class="src"><a href="https://carta.com/data/vc-fund-performance-q1-2024/" target="_blank" rel="noopener">Carta VC Fund Performance, 2024</a></span>
+      </div>
+      <div class="stat reveal">
+        <div class="n">2.2<span class="u">yr</span></div>
+        <div class="l">median time from seed to Series A — your runway is the real deadline</div>
+        <span class="src"><a href="https://carta.com/data/time-between-vc-rounds-2024/" target="_blank" rel="noopener">Carta, 2024</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="blk" id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label"><span class="slash">//</span> <span class="num">07</span> Pricing</span>
+      <h2>One price. Half back if we miss the mark<span class="dot">.</span></h2>
+      <p>First 3–5 design partners only. In exchange for partner pricing: your honest feedback and — if it works — a case study.</p>
+    </div>
+    <div class="price-single">
+      <div class="card-p feat reveal">
+        <span class="badge">Design-partner cohort · 3–5 slots</span>
+        <div class="kicker">The GTM Sprint</div>
+        <div class="price"><span class="cur">$</span>5,000 <span class="per">flat · 50/50</span></div>
+        <div class="terms">50% to start, 50% on day 15</div>
+        <div class="guarantee reveal"><span class="g-ic" aria-hidden="true">↺</span><span><b>The guarantee:</b> if the sprint doesn’t put at least <b>8 qualified conversations with your ICP</b> on your calendar by day 30, we refund half. Qualified means they match the ICP we agree on in week 1 — in writing.</span></div>
+        <ul>
+          <li><span class="ic">✓</span>The full 30-day sprint — diagnose, run, learn</li>
+          <li><span class="ic">✓</span>One repeatable channel, launched &amp; iterated for you</li>
+          <li><span class="ic">✓</span>Everything documented and yours to keep</li>
+          <li><span class="ic">✓</span>A senior operator + the full agent stack</li>
+        </ul>
+        <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
+      </div>
+    </div>
+    <p class="anchor-note reveal">For context: a fractional CMO runs <b>$4,000–$20,000/month</b> and mostly hands you strategy. A GTM agency runs <b>$3,000–$25,000/month</b> plus setup — locked in for 3–6 months. We run the whole loop in 30 days, one flat fee, half-back if it fails. <span style="color:var(--faint)">(<a href="https://www.gtm8020.com/blog/fractional-cmo-cost-startups" target="_blank" rel="noopener">GTM 8020</a>, <a href="https://www.miniloop.ai/blog/best-gtm-agencies" target="_blank" rel="noopener">Miniloop</a>, 2026)</span></p>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="blk final" id="apply">
+  <div class="wrap">
+    <span class="label"><span class="slash">//</span> Apply now</span>
+    <h2>If it works, we talk again. If it doesn’t, you lost 30 days, not 3 months<span class="dot">.</span></h2>
+    <p>3–5 design partners this cohort. Funded B2B / AI founders, US &amp; Europe, product shipped, channel not found. Tell me where you’re stuck — even if it’s not a fit, you’ll leave the call with the channel I’d bet on for you.</p>
+    <p class="anchor-close">Your other options are a $12K/mo agency with a 3-month minimum, or six months of guessing. This is 30 days and $5K.</p>
+    <div class="actions">
+      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
+      <a href="https://www.linkedin.com/in/alisakorneeva/" target="_blank" rel="noopener" class="btn btn-ghost">Message Alisa on LinkedIn</a>
+    </div>
+    <p class="fine">// no retainer pitch · no pressure · a 20-minute call to see if you’re a fit</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Digitalista">Digitalista<span class="dot">.</span></a>
+    <span class="cr">© 2026 Digitalista · The GTM Sprint · <a href="https://digitalista.tech" target="_blank" rel="noopener">digitalista.tech</a></span>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%4,3)*70)+'ms';io.observe(el);});
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>
