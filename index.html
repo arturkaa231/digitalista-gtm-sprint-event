@@ -226,6 +226,44 @@ section.blk{padding-block:clamp(var(--space-16),8vw,var(--space-32));}
 .team-line{margin-top:var(--space-12);color:var(--muted);font-size:var(--text-base);max-width:60ch;}
 .team-line b{color:var(--white);}
 
+/* TEARDOWN (free offer) */
+.teardown{background:linear-gradient(165deg,rgba(74,222,128,.12),var(--bg-blue) 55%);border-top:1px solid rgba(74,222,128,.28);border-bottom:1px solid rgba(74,222,128,.28);}
+.td-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(var(--space-8),5vw,var(--space-16));align-items:center;}
+@media(max-width:860px){.td-grid{grid-template-columns:1fr;}}
+.td-pill{display:inline-flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-weight:600;font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;color:#080808;background:var(--green);padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);}
+.td-kicker{font-family:var(--font-mono);font-weight:500;font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:block;margin-top:var(--space-4);}
+.teardown h2{font-size:var(--text-2xl);margin-top:var(--space-4);max-width:18ch;}
+.teardown .td-sub{color:var(--muted);font-size:var(--text-lg);margin-top:var(--space-5);max-width:52ch;}
+.td-list{list-style:none;margin-top:var(--space-8);display:flex;flex-direction:column;gap:var(--space-4);}
+.td-list li{display:flex;gap:var(--space-3);align-items:flex-start;color:var(--white);font-size:var(--text-base);line-height:1.45;}
+.td-list li .ic{color:var(--green);flex:none;margin-top:2px;font-weight:700;}
+.td-note{color:var(--faint);font-style:italic;font-size:var(--text-sm);margin-top:var(--space-6);max-width:52ch;line-height:1.55;}
+.td-card{background:var(--card);border:1px solid rgba(74,222,128,.3);border-radius:var(--radius-xl);padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-5);}
+.td-card .free-line{font-family:var(--font-display);font-weight:900;font-size:var(--text-lg);color:var(--white);letter-spacing:-0.03em;line-height:1.1;}
+.td-card .free-line .g{color:var(--green);}
+.td-card .scarce{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.06em;color:var(--gold);display:inline-flex;align-items:center;gap:var(--space-2);}
+.td-card .btn{width:100%;font-size:var(--text-base);padding:var(--space-5) var(--space-6);}
+.td-card .reassure{color:var(--faint);font-style:italic;font-size:var(--text-sm);line-height:1.5;}
+.td-card .annot{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--faint);letter-spacing:.04em;}
+
+/* connector free -> paid */
+.connector{text-align:center;max-width:var(--content);margin:0 auto;padding:var(--space-10) var(--space-6) 0;}
+.connector .line{display:inline-block;color:var(--muted);font-size:var(--text-base);max-width:56ch;line-height:1.5;position:relative;}
+.connector .line b{color:var(--green);}
+.connector .arrow{display:block;color:var(--green);font-size:1.4rem;margin-top:var(--space-3);line-height:1;}
+
+/* compact teardown repeat after pricing */
+.td-compact{margin-top:var(--space-12);background:var(--green-soft);border:1px solid rgba(74,222,128,.28);border-radius:var(--radius-xl);padding:var(--space-8);display:flex;align-items:center;justify-content:space-between;gap:var(--space-8);flex-wrap:wrap;}
+.td-compact .txt{max-width:46ch;}
+.td-compact .txt .k{font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:var(--space-2);}
+.td-compact .txt b{color:var(--white);font-family:var(--font-display);font-weight:900;font-size:var(--text-lg);letter-spacing:-0.02em;display:block;}
+.td-compact .txt p{color:var(--muted);font-size:var(--text-sm);margin-top:var(--space-2);}
+.td-compact .btn{flex:none;}
+@media(max-width:640px){.td-compact{flex-direction:column;align-items:stretch;}.td-compact .btn{width:100%;}}
+
+/* reassurance strip (No lock-in) */
+.keep-line{color:var(--muted);font-size:var(--text-base);margin-top:var(--space-5);max-width:64ch;font-style:italic;}
+
 /* FINAL */
 .final .wrap{text-align:center;}
 .final .label{justify-content:center;margin-bottom:var(--space-5);}
@@ -252,7 +290,7 @@ footer .cr a:hover{color:var(--green);}
 <nav class="nav">
   <div class="nav-inner">
     <a href="#top" class="logo" aria-label="Digitalista home">Digitalista<span class="dot">.</span></a>
-    <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="nav-cta">Book a call</a>
+    <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="nav-cta">Free GTM Teardown</a>
   </div>
 </nav>
 
@@ -263,12 +301,12 @@ footer .cr a:hover{color:var(--green);}
   <div class="wrap">
     <span class="label"><span class="slash">//</span> A 30-day design-partner sprint</span>
     <h1>Your first growth team.<br>For 30 days. Before you can afford one<span class="dot">.</span></h1>
-    <p class="lede">A fixed 30-day sprint: we diagnose your GTM bottleneck, design the experiments, and run the outbound machine. You just take the calls.</p>
+    <p class="lede">A co-CMO that runs the machine underneath — humans decide, agents do the volume. We find you a repeatable channel in 30 days, or half your money back.</p>
     <div class="actions">
-      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
-      <a href="#how" class="btn btn-ghost">See how it works</a>
+      <a href="#teardown" class="btn btn-primary">Book my free GTM Teardown →</a>
+      <a href="#how" class="btn btn-ghost">or see how the 30-day sprint works ↓</a>
     </div>
-    <p class="cta-micro">We take 4 sprints per month. No pitch — you’ll leave with a hypothesis about your bottleneck either way.</p>
+    <p class="cta-micro">Free 20-min call. No pitch — you’ll leave with 3 experiments and the channel I’d bet on for you, either way.</p>
     <div class="slots"><span class="pulse"></span><span>4 sprints / month · this cohort · partner pricing</span></div>
   </div>
 </header>
@@ -354,6 +392,7 @@ footer .cr a:hover{color:var(--green);}
     <div class="sec-head reveal" style="margin-top:var(--space-24)">
       <span class="label"><span class="slash">//</span> Yours to keep</span>
       <h2>Everything we build is yours. No lock-in<span class="dot">.</span></h2>
+      <p class="keep-line">Channel logic, sequences, target lists, metrics, the documented playbook — all yours to keep and run, with us or without us.</p>
     </div>
     <div class="keep">
       <div class="item reveal"><span class="ic" aria-hidden="true">✓</span><span>The sharpened ICP &amp; positioning</span></div>
@@ -447,6 +486,7 @@ footer .cr a:hover{color:var(--green);}
     <div class="sec-head center reveal">
       <span class="label" style="justify-content:center"><span class="slash">//</span> <span class="num">06</span> Why now</span>
       <h2>The clock is louder than founders admit<span class="dot">.</span></h2>
+      <p>Every month without a working channel is a month of runway spent guessing. 30 days gives you an answer while you still have room to act on it.</p>
     </div>
     <div class="stats">
       <div class="stat reveal">
@@ -468,6 +508,38 @@ footer .cr a:hover{color:var(--green);}
   </div>
 </section>
 
+<!-- TEARDOWN (free offer) -->
+<section class="blk teardown" id="teardown">
+  <div class="wrap">
+    <div class="td-grid">
+      <div class="reveal">
+        <span class="td-pill">Free · 20 min</span>
+        <span class="td-kicker">// the free step · GTM Teardown</span>
+        <h2>Leave with 3 experiments you can run this week<span class="dot">.</span></h2>
+        <p class="td-sub">A 20-minute call. We audit your current go-to-market, name the one bottleneck holding you back, and hand you 3 prioritized experiments — grounded in what’s worked for 240+ B2B founders. Yours to run solo. Or we run them for you.</p>
+        <ul class="td-list">
+          <li><span class="ic">✓</span>A live audit of your current GTM motion — where you’re actually stuck, not the vibe</li>
+          <li><span class="ic">✓</span>Your sharpest beachhead ICP, defined on the call</li>
+          <li><span class="ic">✓</span>3 ranked experiments you can launch this week — yours to keep, no strings</li>
+          <li><span class="ic">✓</span>A straight answer on whether a paid sprint even makes sense for you</li>
+        </ul>
+        <p class="td-note">No pitch unless you ask for one. Even if we’re not a fit, you leave with the channel I’d bet on for you.</p>
+      </div>
+      <div class="td-card reveal">
+        <div class="free-line">Your free <span class="g">GTM Teardown.</span></div>
+        <div class="scarce"><span class="pulse"></span> I take 5 teardown calls a week</div>
+        <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book my free GTM Teardown →</a>
+        <p class="reassure">No pitch unless you ask for one. 20 minutes, and you walk away with a plan either way.</p>
+        <span class="annot">// no card · no obligation · just the plan</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector reveal">
+    <span class="line">The 3 experiments from your teardown are exactly what we <b>run in the sprint</b> — free call tells you what to do, the sprint does it for you.<span class="arrow" aria-hidden="true">↓</span></span>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="blk" id="pricing">
   <div class="wrap">
@@ -480,19 +552,28 @@ footer .cr a:hover{color:var(--green);}
       <div class="card-p feat reveal">
         <span class="badge">Design-partner cohort · 3–5 slots</span>
         <div class="kicker">The GTM Sprint</div>
-        <div class="price"><span class="cur">$</span>5,000 <span class="per">flat · 50/50</span></div>
-        <div class="terms">50% to start, 50% on day 15</div>
-        <div class="guarantee reveal"><span class="g-ic" aria-hidden="true">↺</span><span><b>The guarantee:</b> if the sprint doesn’t put at least <b>8 qualified conversations with your ICP</b> on your calendar by day 30, we refund half. Qualified means they match the ICP we agree on in week 1 — in writing.</span></div>
+        <div class="price"><span class="cur">$</span>5,000</div>
+        <div class="terms">flat · one 30-day sprint · half back if we miss the mark</div>
+        <div class="guarantee reveal"><span class="g-ic" aria-hidden="true">↺</span><span><b>One outcome, guaranteed:</b> a validated channel in 30 days. Week 1 we set your target together — 5 qualified intros for a high-ACV enterprise founder, 30+ conversations for a PLG startup — <b>in writing.</b> By day 30 you have a repeatable channel hitting it, or a data-backed verdict on why not and what to try next. Miss the mark and <b>we refund half — $2,500 back.</b></span></div>
         <ul>
           <li><span class="ic">✓</span>The full 30-day sprint — diagnose, run, learn</li>
           <li><span class="ic">✓</span>One repeatable channel, launched &amp; iterated for you</li>
           <li><span class="ic">✓</span>Everything documented and yours to keep</li>
           <li><span class="ic">✓</span>A senior operator + the full agent stack</li>
         </ul>
-        <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
+        <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Start with a free GTM Teardown →</a>
       </div>
     </div>
     <p class="anchor-note reveal">For context: a fractional CMO runs <b>$4,000–$20,000/month</b> and mostly hands you strategy. A GTM agency runs <b>$3,000–$25,000/month</b> plus setup — locked in for 3–6 months. We run the whole loop in 30 days, one flat fee, half-back if it fails. <span style="color:var(--faint)">(<a href="https://www.gtm8020.com/blog/fractional-cmo-cost-startups" target="_blank" rel="noopener">GTM 8020</a>, <a href="https://www.miniloop.ai/blog/best-gtm-agencies" target="_blank" rel="noopener">Miniloop</a>, 2026)</span></p>
+
+    <div class="td-compact reveal">
+      <div class="txt">
+        <span class="k">// not ready for $5K yet?</span>
+        <b>Start with a free GTM Teardown.</b>
+        <p>20 minutes, 3 experiments to run this week, zero obligation. It’s the same first move we make inside the sprint.</p>
+      </div>
+      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book my free Teardown →</a>
+    </div>
   </div>
 </section>
 
@@ -501,13 +582,13 @@ footer .cr a:hover{color:var(--green);}
   <div class="wrap">
     <span class="label"><span class="slash">//</span> Apply now</span>
     <h2>If it works, we talk again. If it doesn’t, you lost 30 days, not 3 months<span class="dot">.</span></h2>
-    <p>3–5 design partners this cohort. Funded B2B / AI founders, US &amp; Europe, product shipped, channel not found. Tell me where you’re stuck — even if it’s not a fit, you’ll leave the call with the channel I’d bet on for you.</p>
+    <p>3–5 design partners this cohort. <b>Pre-seed and seed B2B / AI founders — including YC and top-accelerator teams</b> — US &amp; Europe, product shipped, channel not found. Tell me where you’re stuck — even if it’s not a fit, you’ll leave the call with the channel I’d bet on for you.</p>
     <p class="anchor-close">Your other options are a $12K/mo agency with a 3-month minimum, or six months of guessing. This is 30 days and $5K.</p>
     <div class="actions">
-      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book a 20-min GTM clarity call →</a>
+      <a href="https://cal.com/askorneeva/20min" target="_blank" rel="noopener" class="btn btn-primary">Book my free GTM Teardown →</a>
       <a href="https://www.linkedin.com/in/alisakorneeva/" target="_blank" rel="noopener" class="btn btn-ghost">Message Alisa on LinkedIn</a>
     </div>
-    <p class="fine">// no retainer pitch · no pressure · a 20-minute call to see if you’re a fit</p>
+    <p class="fine">// no retainer pitch · no pressure · a free 20-minute GTM Teardown</p>
   </div>
 </section>
 
